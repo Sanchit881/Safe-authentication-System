@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .login-container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            transition: all 0.3s ease;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+        }
+
+        /* Input fields */
+        .input-field {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: border 0.3s ease;
+        }
+
+        .input-field:focus {
+            border-color: #007BFF;
+        }
+
+        /* Login button */
+        .login-btn {
+            width: 100%;
+            padding: 12px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .login-btn:hover {
+            background-color: #0056b3;
+        }
+
+        /* Forgot password text */
+        .forgot-password {
+            display: block;
+            text-align: center;
+            margin-top: 10px;
+            font-size: 14px;
+        }
+
+        .forgot-password a {
+            text-decoration: none;
+            color: #007BFF;
+        }
+
+        .forgot-password a:hover {
+            text-decoration: underline;
+        }
+
+        /* Sign-up link */
+        .sign_up {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .sign_up a {
+            text-decoration: none;
+            color: #007BFF;
+            font-size: 14px;
+        }
+
+        .sign_up a:hover {
+            text-decoration: underline;
+        }
+
+        /* Flash message styles */
+        .flash-message {
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            text-align: center;
+            font-size: 16px;
+        }
+
+        .flash-message.success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .flash-message.error {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+
+        /* Media Query for responsiveness */
+        @media (max-width: 480px) {
+            .login-container {
+                padding: 20px;
+                width: 80%;
+            }
+
+            .input-field {
+                padding: 10px;
+            }
+
+            .login-btn {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Flash Messages Display -->
+    {% with msg=get_flashed_messages(with_categories=true) %}
+        {% if msg %}
+            {% for category, message in msg %}
+                <div class="flash-message {{ category }}">
+                    <p>{{ message }}</p>
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <!-- Login Form -->
+    <div class="login-container">
+        <h2>Login</h2>
+        <form action="/login" method="POST">
+            <input type="text" class="input-field" placeholder="Username" name="username" required>
+            <input type="password" class="input-field" placeholder="Password" name="password" required>
+            <button type="submit" class="login-btn">Login</button>
+        </form>
+        <div class="forgot-password">
+            <a href="{{ url_for('forgot_password') }}"">Forgot Password?</a>
+        </div>
+        <div class="sign_up">
+            <a href="{{ url_for('regester') }}">Sign Up</a>
+        </div>
+    </div>
+
+</body>
+</html>
